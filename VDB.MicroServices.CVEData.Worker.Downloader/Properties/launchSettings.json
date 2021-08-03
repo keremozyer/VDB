@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "VDB.MicroServices.CVEData.Worker.Downloader": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": "true"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

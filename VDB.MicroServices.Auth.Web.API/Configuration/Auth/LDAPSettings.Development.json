@@ -1,0 +1,13 @@
+{
+  "LDAPSettings": {
+    "Host": "ldap-container",
+    "Port": 389,
+    "DC": "DC=vdb,DC=org",
+    "UserDNTemplate": "uid={0},ou={1},{2}",
+    "OuRegexExtractor": "(.*?)",
+    "OuRegexLeftPart": ",ou=",
+    "OuRegexRightPart": ",dc=",
+    "UIDSearchTemplate": "(uid={0})",
+    "UIDSearchScope": 2
+  }
+}

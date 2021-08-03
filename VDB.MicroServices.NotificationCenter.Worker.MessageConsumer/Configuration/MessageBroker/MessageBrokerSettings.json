@@ -1,0 +1,11 @@
+{
+  "MessageBrokerSettings": {
+    "NotificationQueueName": "NotificationQueue",
+    "HostName": "rabbitmq",
+    "Port": 5672,
+    "RetryCacheKey": "NotificationQueueRetryCount",
+    "RetryCount": 2,
+    "PrefetchSize": 0,
+    "PrefetchCount": 1
+  }
+}

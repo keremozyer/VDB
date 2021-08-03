@@ -1,0 +1,7 @@
+{
+  "EmailServiceSettings": {
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "ToMailAddressSeperator": ","
+  }
+}

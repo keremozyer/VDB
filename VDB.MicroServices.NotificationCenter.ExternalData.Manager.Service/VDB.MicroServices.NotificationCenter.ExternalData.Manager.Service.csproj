@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Gmail.v1" Version="1.53.0.2356" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.Concern.Options\VDB.MicroServices.NotificationCenter.Concern.Options.csproj" />
+    <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model.csproj" />
+  </ItemGroup>
+
+</Project>

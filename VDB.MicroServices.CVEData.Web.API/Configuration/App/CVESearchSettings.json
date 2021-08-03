@@ -1,0 +1,8 @@
+{
+  "CVESearchSettings": {
+    "AllVersionsIndicators": [ ".", "*", "-" ],
+    "NodeOperatorAnd": "AND",
+    "StandartVersionSeperator": ".",
+    "StandartVersionNumber": "0"
+  }
+}

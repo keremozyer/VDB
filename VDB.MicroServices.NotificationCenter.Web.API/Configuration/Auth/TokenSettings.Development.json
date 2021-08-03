@@ -1,0 +1,12 @@
+{
+  "TokenSettings": {
+    "SecurityKey": "LkUEglVybjQCqpSsASLK",
+    "Issuer": "vdb",
+    "Audience": "vdb",
+    "EncryptionCertificate": {
+      "PublicCertificatePath": "test",
+      "PrivateKeyPath": "test1",
+      "PrivateKeyPassword": "test2"
+    }
+  }
+}

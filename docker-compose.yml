@@ -1,0 +1,274 @@
+version: '3.4'
+
+services:
+    vdb.gateway.web:
+        container_name: gateway-container
+        image: ${DOCKER_REGISTRY-}vdbgatewayweb
+        build:
+            context: .
+            dockerfile: VDB.GateWay.Web\Dockerfile
+        depends_on:
+            - cvedata.web.api
+            - auth.web.api
+            - inventorymanager.web.api
+            - vulnerabilitydetector.web.api
+            - notificationcenter.web.api
+            - graylog
+            - redis
+        ports:
+            - "8010:80"
+    auth.web.api:
+        container_name: auth.web.api
+        image: ${DOCKER_REGISTRY-}vdbmicroservicesauthwebapi
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.Auth.Web.API\Dockerfile
+        #ports:
+            #- "8011:80"
+        depends_on:
+            - ldap-container
+            - graylog
+            - redis
+    cvedata.web.api:
+        container_name: cvedata.web.api
+        image: ${DOCKER_REGISTRY-}vdbmicroservicescvedatawebapi
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.CVEData.Web.API\Dockerfile
+        depends_on:
+            - db-container
+            - graylog
+            - rabbitmq
+            - redis
+        #ports:
+            #- "8012:80"
+    inventorymanager.web.api:
+        container_name: inventorymanager.web.api
+        image: ${DOCKER_REGISTRY-}vdbmicroservicesinventorymanagerwebapi
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.InventoryManager.Web.API\Dockerfile
+        depends_on:
+            - db-container
+            - graylog
+            - redis
+        #ports:
+            #- "8013:80"
+    vulnerabilitydetector.web.api:
+        container_name: vulnerabilitydetector.web.api
+        image: ${DOCKER_REGISTRY-}vdbmicroservicesvulnerabilitydetectorwebapi
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.VulnerabilityDetector.Web.API\Dockerfile
+        depends_on:
+            - db-container
+            - rabbitmq
+            - graylog
+            - redis
+        #ports:
+            #- "8014:80"
+    vulnerabilitydetector.worker.messageconsumer:
+        container_name: vulnerabilitydetector.worker.messageconsumer
+        image: ${DOCKER_REGISTRY-}vdbmicroservicesvulnerabilitydetectorworkermessageconsumer
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.VulnerabilityDetector.Worker.MessageConsumer\Dockerfile
+        restart: on-failure
+        depends_on:
+            - rabbitmq
+            - redis
+            - inventorymanager.web.api
+            - cvedata.web.api
+            - db-container
+            - graylog
+    notificationcenter.web.api:
+        container_name: notificationcenter.web.api
+        image: ${DOCKER_REGISTRY-}vdbmicroservicesnotificationcenterwebapi
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.NotificationCenter.Web.API\Dockerfile
+        depends_on:
+            - db-container
+            - graylog
+            - redis
+    notificationcenter.worker.messageconsumer:
+        container_name: notificationcenter.worker.messageconsumer
+        image: ${DOCKER_REGISTRY-}vdbmicroservicesnotificationcenterworkermessageconsumer
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.NotificationCenter.Worker.MessageConsumer\Dockerfile
+        restart: on-failure
+        depends_on:
+            - rabbitmq
+            - redis
+            - db-container
+            - graylog
+    cvedata.worker.downloader:
+        container_name: cvedata.worker.downloader
+        image: ${DOCKER_REGISTRY-}vdbmicroservicescvedataworkerdownloader
+        build:
+            context: .
+            dockerfile: VDB.MicroServices.CVEData.Worker.Downloader\Dockerfile
+        #ports:
+            #- "8016:80"
+        depends_on:
+            - vulnerabilitydetector.web.api
+            - graylog
+            - redis
+        restart: on-failure
+    db-container:
+        container_name: sql1
+        image: mcr.microsoft.com/mssql/server
+        hostname: "sqlserver"
+        user: root
+        ports:
+            - "1433:1433"
+        expose:
+            - 1433
+        volumes:
+            - ${APPDATA}/vdb/Database/mssql:/var/opt/mssql/data
+    ldap-container:
+        container_name: ldap-container
+        image: osixia/openldap:1.5.0
+        command: --copy-service
+        environment:
+            LDAP_LOG_LEVEL: "256"
+            LDAP_ORGANISATION: "VDB"
+            LDAP_DOMAIN: "vdb.org"
+            LDAP_BASE_DN: "dc=vdb,dc=org"            
+            LDAP_READONLY_USER: "false"
+            LDAP_RFC2307BIS_SCHEMA: "false"
+            LDAP_BACKEND: "mdb"
+            LDAP_TLS: "true"
+            LDAP_TLS_CRT_FILENAME: "ldap.crt"
+            LDAP_TLS_KEY_FILENAME: "ldap.key"
+            LDAP_TLS_DH_PARAM_FILENAME: "dhparam.pem"
+            LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
+            LDAP_TLS_ENFORCE: "false"
+            LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+            LDAP_TLS_VERIFY_CLIENT: "demand"
+            LDAP_REPLICATION: "false"
+            KEEP_EXISTING_CONFIG: "false"
+            LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+            LDAP_SSL_HELPER_PREFIX: "ldap"
+        tty: true
+        stdin_open: true
+        volumes:
+            - database:/var/lib/ldap
+            - config:/etc/ldap/slapd.d
+            - /container/service/slapd/assets/certs/
+        #ports:
+            #- "389:389"
+            #- "636:636"
+        domainname: "vdb.org"
+        hostname: "ldap-server"
+    ldap-adminpanel:
+        container_name: ldap-adminpanel
+        image: osixia/phpldapadmin:0.9.0
+        links:
+            - ldap-container
+        environment:
+            PHPLDAPADMIN_LDAP_HOSTS: "ldap-container"
+            PHPLDAPADMIN_HTTPS: "false"
+        ports:
+            - "8001:80"
+        depends_on:
+            - ldap-container
+    rabbitmq:
+        container_name: rabbitmq
+        image: rabbitmq:3-management
+        hostname: "rabbitmq"
+        volumes:
+          - /etc/rabbitmq/definitions.json
+          - /etc/rabbitmq/rabbitmq.conf
+          - /var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+          - /var/log/rabbitmq/log
+        ports:
+            #- "4369:4369"
+            #- "5671:5671"
+            #- "5672:5672"
+            #- "25672:25672"
+            #- "15671:15671"
+            - "15672:15672"
+    redis:
+        container_name: redis
+        image: redis
+        #ports:
+            #- "6379:6379"
+        volumes:
+            - redis_data:/data
+    redis-commander:
+        container_name: redis-commander
+        hostname: redis-commander
+        image: rediscommander/redis-commander:latest
+        restart: always
+        environment:
+            - REDIS_HOSTS=local:redis:6379
+        ports:
+            - "8081:8081"
+        depends_on:
+            - redis
+    mongo:
+        container_name: mongo
+        image: mongo:4.2
+        volumes:
+            - mongo_data:/data/db
+    elasticsearch:
+        container_name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+        environment:
+          - http.host=0.0.0.0
+          - transport.host=localhost
+          - network.host=0.0.0.0
+          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+          memlock:
+            soft: -1
+            hard: -1
+        deploy:
+          resources:
+            limits:
+              memory: 1g
+        volumes:
+            - es_data:/usr/share/elasticsearch/data
+    graylog:
+        container_name: graylog
+        image: graylog/graylog:4.1
+        environment:
+          - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
+          - GRAYLOG_CONTENT_PACKS_AUTO_INSTALL=udp-input-graylog.json
+          - GRAYLOG_CONTENT_PACKS_DIR=data/contentpacks
+          - GRAYLOG_CONTENT_PACKS_LOADER_ENABLED=true
+        entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
+        volumes:
+            - graylog_data:/usr/share/graylog/data
+            - ./ReferenceData/volume/graylog:/usr/share/graylog/data/contentpacks
+        restart: always
+        depends_on:
+          - mongo
+          - elasticsearch
+        ports:
+          # Graylog web interface and REST API
+          - 9000:9000
+          # Syslog TCP
+          #- 1514:1514
+          # Syslog UDP
+          #- 1514:1514/udp
+          # GELF TCP
+          #- 12201:12201
+          # GELF UDP
+          #- 12201:12201/udp
+        links:
+            - mongo:mongo
+            - elasticsearch
+
+volumes:
+  config:
+  database:
+  redis_data:
+  mongo_data:
+    driver: local
+  es_data:
+    driver: local
+  graylog_data:
+    driver: local

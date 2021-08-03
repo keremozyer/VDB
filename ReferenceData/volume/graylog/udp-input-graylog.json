@@ -1,0 +1,65 @@
+{
+  "v": 1,
+  "id": "ba8acdca-8844-4d6f-ad2b-fe4d0591696b",
+  "rev": 1,
+  "name": "VDB Gelf",
+  "summary": "VDB Gelf",
+  "description": "VDB Gelf",
+  "vendor": "VDB",
+  "url": "",
+  "parameters": [],
+  "entities": [
+    {
+      "v": "1",
+      "type": {
+        "name": "input",
+        "version": "1"
+      },
+      "id": "a240dedc-f3a1-419a-b88f-ce248c5829d0",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "VDB Log"
+        },
+        "configuration": {
+          "recv_buffer_size": {
+            "@type": "integer",
+            "@value": 262144
+          },
+          "port": {
+            "@type": "integer",
+            "@value": 12201
+          },
+          "number_worker_threads": {
+            "@type": "integer",
+            "@value": 12
+          },
+          "bind_address": {
+            "@type": "string",
+            "@value": "0.0.0.0"
+          },
+          "decompress_size_limit": {
+            "@type": "integer",
+            "@value": 8388608
+          }
+        },
+        "static_fields": {},
+        "type": {
+          "@type": "string",
+          "@value": "org.graylog2.inputs.gelf.udp.GELFUDPInput"
+        },
+        "global": {
+          "@type": "boolean",
+          "@value": true
+        },
+        "extractors": []
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.1.2+20cd592"
+        }
+      ]
+    }
+  ]
+}
