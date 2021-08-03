@@ -3,7 +3,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 using VDB.Architecture.Concern.Options;
 using VDB.MicroServices.Auth.Model.Exchange.Token.Create;
 using Microsoft.IdentityModel.Tokens;
@@ -54,7 +53,7 @@ namespace VDB.MicroServices.Auth.Manager.Business.Implementation
                 Issuer = this.TokenSettings.Issuer,
                 Audience = this.TokenSettings.Audience,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.TokenSettings.SecurityKey)), SecurityAlgorithms.HmacSha256),
-                //EncryptingCredentials = new X509EncryptingCredentials(new X509Certificate2(this.TokenSettings.EncryptionCertificate.PublicCertificatePath))
+                EncryptingCredentials = new X509EncryptingCredentials(new X509Certificate2(this.TokenSettings.EncryptionCertificate.PublicCertificatePath))
             };
             JwtSecurityTokenHandler handler = new();
 

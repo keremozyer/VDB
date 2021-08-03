@@ -17,6 +17,8 @@ services:
             - redis
         ports:
             - "8010:80"
+        volumes:
+            - ./Certificate:/app/Certificate
     auth.web.api:
         container_name: auth.web.api
         image: ${DOCKER_REGISTRY-}vdbmicroservicesauthwebapi
@@ -29,6 +31,8 @@ services:
             - ldap-container
             - graylog
             - redis
+        volumes:
+            - ./Certificate:/app/Certificate
     cvedata.web.api:
         container_name: cvedata.web.api
         image: ${DOCKER_REGISTRY-}vdbmicroservicescvedatawebapi
@@ -42,6 +46,8 @@ services:
             - redis
         #ports:
             #- "8012:80"
+        volumes:
+            - ./Certificate:/app/Certificate
     inventorymanager.web.api:
         container_name: inventorymanager.web.api
         image: ${DOCKER_REGISTRY-}vdbmicroservicesinventorymanagerwebapi
@@ -54,6 +60,8 @@ services:
             - redis
         #ports:
             #- "8013:80"
+        volumes:
+            - ./Certificate:/app/Certificate
     vulnerabilitydetector.web.api:
         container_name: vulnerabilitydetector.web.api
         image: ${DOCKER_REGISTRY-}vdbmicroservicesvulnerabilitydetectorwebapi
@@ -67,6 +75,8 @@ services:
             - redis
         #ports:
             #- "8014:80"
+        volumes:
+            - ./Certificate:/app/Certificate
     vulnerabilitydetector.worker.messageconsumer:
         container_name: vulnerabilitydetector.worker.messageconsumer
         image: ${DOCKER_REGISTRY-}vdbmicroservicesvulnerabilitydetectorworkermessageconsumer
@@ -91,6 +101,8 @@ services:
             - db-container
             - graylog
             - redis
+        volumes:
+            - ./Certificate:/app/Certificate
     notificationcenter.worker.messageconsumer:
         container_name: notificationcenter.worker.messageconsumer
         image: ${DOCKER_REGISTRY-}vdbmicroservicesnotificationcenterworkermessageconsumer

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using VDB.Architecture.AppException.Manager;
 using VDB.Architecture.Concern.GenericValidator;
@@ -102,7 +103,7 @@ namespace VDB.Architecture.Web.Core
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero,
                         RequireExpirationTime = true,
-                        //TokenDecryptionKey = new X509SecurityKey(new X509Certificate2(settings.EncryptionCertificate.PrivateKeyPath, settings.EncryptionCertificate.PrivateKeyPassword))
+                        TokenDecryptionKey = new X509SecurityKey(new X509Certificate2(settings.EncryptionCertificate.PrivateKeyPath, settings.EncryptionCertificate.PrivateKeyPassword))
                     };
                 });
         }
