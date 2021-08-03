@@ -389,3 +389,5 @@ MigrationBackup/
 /VDB.MicroServices.VulnerabilityDetector.Worker.MessageConsumer/Configuration/MessageBroker/MessageBrokerSecrets.Development.json
 /docker-compose.override.yml
 /ReferenceData/bootstrap.ldif
+/VDB.MicroServices.NotificationCenter.Web.API/Configuration/Auth/TokenSettings.json
+/VDB.MicroServices.NotificationCenter.Web.API/Configuration/Auth/TokenSettings.Development.json
