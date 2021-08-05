@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Gmail.v1" Version="1.53.0.2356" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
   </ItemGroup>
 
