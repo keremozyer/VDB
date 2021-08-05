@@ -7,7 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using VDB.MicroServices.NotificationCenter.Concern.Options;
-using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model.Email;
+using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract;
+using VDB.MicroServices.NotificationCenter.ExternalData.Model.Email;
 
 namespace VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.Emailing.GoogleMail
 {

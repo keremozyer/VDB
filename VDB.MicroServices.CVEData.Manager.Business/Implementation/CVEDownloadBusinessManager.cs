@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using VDB.MicroServices.CVEData.Concern.Options;
 using VDB.MicroServices.CVEData.DB.UnitOfWork;
+using VDB.MicroServices.CVEData.ExternalData.Manager.Contract;
 using VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData;
 using VDB.MicroServices.CVEData.ExternalData.Manager.Service.VulnerabilityReport;
 using VDB.MicroServices.CVEData.Manager.Business.Interface;

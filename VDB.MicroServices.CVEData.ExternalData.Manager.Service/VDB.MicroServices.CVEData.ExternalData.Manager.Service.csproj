@@ -13,6 +13,7 @@
     <ProjectReference Include="..\VDB.Architecture.Concern.ExtensionMethods\VDB.Architecture.Concern.ExtensionMethods.csproj" />
     <ProjectReference Include="..\VDB.Architecture.Concern.Helper\VDB.Architecture.Concern.Helper.csproj" />
     <ProjectReference Include="..\VDB.MicroServices.CVEData.Concern.Options\VDB.MicroServices.CVEData.Concern.Options.csproj" />
+    <ProjectReference Include="..\VDB.MicroServices.CVEData.ExternalData.Manager.Contract\VDB.MicroServices.CVEData.ExternalData.Manager.Contract.csproj" />
     <ProjectReference Include="..\VDB.MicroServices.CVEData.ExternalData.Model\VDB.MicroServices.CVEData.ExternalData.Model.csproj" />
     <ProjectReference Include="..\VDB.MicroServices.CVEData.Manager.Mapper\VDB.MicroServices.CVEData.Manager.Mapper.csproj" />
     <ProjectReference Include="..\VDB.MicroServices.CVEData.Model.DTO\VDB.MicroServices.CVEData.Model.DTO.csproj" />

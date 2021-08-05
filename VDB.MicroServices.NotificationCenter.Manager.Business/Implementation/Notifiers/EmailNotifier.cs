@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model.Email;
-using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.Emailing;
+using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract;
+using VDB.MicroServices.NotificationCenter.ExternalData.Model.Email;
 using VDB.MicroServices.NotificationCenter.Manager.Business.Interface;
 using VDB.MicroServices.NotificationCenter.Model.Entity.POCO;
 using VDB.MicroServices.NotificationCenter.Model.Exchange.SendNotification;

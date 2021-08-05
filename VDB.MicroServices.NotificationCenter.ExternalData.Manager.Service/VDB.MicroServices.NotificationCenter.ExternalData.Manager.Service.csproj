@@ -10,7 +10,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.Concern.Options\VDB.MicroServices.NotificationCenter.Concern.Options.csproj" />
-    <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model.csproj" />
+    <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract.csproj" />
+    <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.ExternalData.Model\VDB.MicroServices.NotificationCenter.ExternalData.Model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,7 @@ using VDB.MicroServices.CVEData.Manager.Mapper.ExternalCVEDataMappers;
 using System;
 using Microsoft.Extensions.Options;
 using VDB.MicroServices.CVEData.Concern.Options;
+using VDB.MicroServices.CVEData.ExternalData.Manager.Contract;
 
 namespace VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData.NVD
 {

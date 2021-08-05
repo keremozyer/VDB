@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using VDB.MicroServices.CVEData.Model.DTO.CVEData;
 
-namespace VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData
+namespace VDB.MicroServices.CVEData.ExternalData.Manager.Contract
 {
     public interface ICVEServiceManager
     {

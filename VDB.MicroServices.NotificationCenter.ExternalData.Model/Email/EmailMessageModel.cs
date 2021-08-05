@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model.Email
+namespace VDB.MicroServices.NotificationCenter.ExternalData.Model.Email
 {
     public class EmailMessageModel
     {

@@ -7,6 +7,7 @@ using VDB.Architecture.Web.Core;
 using VDB.MicroServices.CVEData.Concern.Options;
 using VDB.MicroServices.CVEData.DB.Context;
 using VDB.MicroServices.CVEData.DB.UnitOfWork;
+using VDB.MicroServices.CVEData.ExternalData.Manager.Contract;
 using VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData;
 using VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData.NVD;
 using VDB.MicroServices.CVEData.Manager.Business.Implementation;

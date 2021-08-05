@@ -8,6 +8,7 @@ using VDB.Architecture.Worker.Core;
 using VDB.MicroServices.NotificationCenter.Concern.Options;
 using VDB.MicroServices.NotificationCenter.DB.Context;
 using VDB.MicroServices.NotificationCenter.DB.UnitOfWork;
+using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract;
 using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.Emailing;
 using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.Emailing.GoogleMail;
 using VDB.MicroServices.NotificationCenter.Manager.Business.Factory;

@@ -225,8 +225,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VDB.MicroServices.Notificat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service", "VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.csproj", "{76679B13-4367-4971-97B9-6182650762A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model", "VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Model.csproj", "{B0988E03-7A0C-4AB9-B50E-A8AA51A17EF0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VDB.MicroServices.NotificationCenter.Web", "VDB.MicroServices.NotificationCenter.Web", "{420D363E-3811-47EF-BDFB-4B24BFD2E3C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDB.MicroServices.NotificationCenter.Web.API", "VDB.MicroServices.NotificationCenter.Web.API\VDB.MicroServices.NotificationCenter.Web.API.csproj", "{9C454CC5-FE8D-4C24-92ED-B95F7786EE3B}"
@@ -250,6 +248,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDB.MicroServices.NotificationCenter.Model.Entity", "VDB.MicroServices.NotificationCenter.Model.Entity\VDB.MicroServices.NotificationCenter.Model.Entity.csproj", "{0DD24CAE-DD40-43E3-9DF5-48F15DD8A19F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDB.MicroServices.NotificationCenter.Manager.Mapper", "VDB.MicroServices.NotificationCenter.Manager.Mapper\VDB.MicroServices.NotificationCenter.Manager.Mapper.csproj", "{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VDB.MicroServices.CVEData.ExternalData.Manager.Contract", "VDB.MicroServices.CVEData.ExternalData.Manager.Contract\VDB.MicroServices.CVEData.ExternalData.Manager.Contract.csproj", "{816F04BC-1931-445D-944B-9A099526173C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract", "VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract.csproj", "{03E33E96-9716-43E9-857B-2C12DB29BB33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VDB.MicroServices.NotificationCenter.ExternalData.Model", "VDB.MicroServices.NotificationCenter.ExternalData.Model\VDB.MicroServices.NotificationCenter.ExternalData.Model.csproj", "{A84065C5-4330-420A-9758-34EDFD3F8F39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -525,10 +529,6 @@ Global
 		{76679B13-4367-4971-97B9-6182650762A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76679B13-4367-4971-97B9-6182650762A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76679B13-4367-4971-97B9-6182650762A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B0988E03-7A0C-4AB9-B50E-A8AA51A17EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B0988E03-7A0C-4AB9-B50E-A8AA51A17EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B0988E03-7A0C-4AB9-B50E-A8AA51A17EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B0988E03-7A0C-4AB9-B50E-A8AA51A17EF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C454CC5-FE8D-4C24-92ED-B95F7786EE3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C454CC5-FE8D-4C24-92ED-B95F7786EE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C454CC5-FE8D-4C24-92ED-B95F7786EE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -565,6 +565,18 @@ Global
 		{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{816F04BC-1931-445D-944B-9A099526173C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{816F04BC-1931-445D-944B-9A099526173C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{816F04BC-1931-445D-944B-9A099526173C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{816F04BC-1931-445D-944B-9A099526173C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E33E96-9716-43E9-857B-2C12DB29BB33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E33E96-9716-43E9-857B-2C12DB29BB33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E33E96-9716-43E9-857B-2C12DB29BB33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E33E96-9716-43E9-857B-2C12DB29BB33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A84065C5-4330-420A-9758-34EDFD3F8F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A84065C5-4330-420A-9758-34EDFD3F8F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A84065C5-4330-420A-9758-34EDFD3F8F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A84065C5-4330-420A-9758-34EDFD3F8F39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -677,7 +689,6 @@ Global
 		{4D6E0B4C-839C-4618-B6E3-3B2E4ED663A4} = {534A295B-D2F4-444F-B151-F8C5E0E7F21E}
 		{623360A1-C6AE-4DD5-8C87-AFD3E05F2940} = {4D6E0B4C-839C-4618-B6E3-3B2E4ED663A4}
 		{76679B13-4367-4971-97B9-6182650762A8} = {623360A1-C6AE-4DD5-8C87-AFD3E05F2940}
-		{B0988E03-7A0C-4AB9-B50E-A8AA51A17EF0} = {623360A1-C6AE-4DD5-8C87-AFD3E05F2940}
 		{420D363E-3811-47EF-BDFB-4B24BFD2E3C1} = {534A295B-D2F4-444F-B151-F8C5E0E7F21E}
 		{9C454CC5-FE8D-4C24-92ED-B95F7786EE3B} = {420D363E-3811-47EF-BDFB-4B24BFD2E3C1}
 		{64CCF734-0768-4E55-A3C2-C092403668DF} = {78B55628-A347-4CA2-B067-2F2A7C2AEBDA}
@@ -690,6 +701,9 @@ Global
 		{2DE495B0-03CE-46F7-A007-17E548B9EA7D} = {F349EB0B-1C4C-4716-994F-DF361C43309D}
 		{0DD24CAE-DD40-43E3-9DF5-48F15DD8A19F} = {77F44C81-40FB-4053-A102-D620A958C0B4}
 		{9F183DA6-EBEE-4385-B3A5-564A0509A8D6} = {C2050FBF-451D-4ACA-941A-CD2D46DD52D6}
+		{816F04BC-1931-445D-944B-9A099526173C} = {A9DC5A98-444A-4218-84BE-514DDA13DD04}
+		{03E33E96-9716-43E9-857B-2C12DB29BB33} = {623360A1-C6AE-4DD5-8C87-AFD3E05F2940}
+		{A84065C5-4330-420A-9758-34EDFD3F8F39} = {4D6E0B4C-839C-4618-B6E3-3B2E4ED663A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FA1670D-9E82-402C-8AFE-CF577C1DD643}
