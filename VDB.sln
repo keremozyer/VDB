@@ -251,8 +251,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDB.MicroServices.Notificat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDB.MicroServices.NotificationCenter.Manager.Mapper", "VDB.MicroServices.NotificationCenter.Manager.Mapper\VDB.MicroServices.NotificationCenter.Manager.Mapper.csproj", "{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigrationTest", "..\MigrationTest\MigrationTest.csproj", "{4062C501-4698-4EBD-B648-027736569450}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -567,10 +565,6 @@ Global
 		{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F183DA6-EBEE-4385-B3A5-564A0509A8D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4062C501-4698-4EBD-B648-027736569450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4062C501-4698-4EBD-B648-027736569450}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4062C501-4698-4EBD-B648-027736569450}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4062C501-4698-4EBD-B648-027736569450}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
