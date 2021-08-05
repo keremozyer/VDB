@@ -42,6 +42,8 @@ namespace VDB.MicroServices.CVEData.Web.API
             ConfigureOperations(services);
 
             services.AddHttpClient<ICVEServiceManager, NVDServiceManager>();
+
+            services.AddLogging();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
