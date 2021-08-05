@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -20,19 +21,19 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
         private IConnection RabbitMQConnection;
         private IModel RabbitMQChannel;
 
+        private readonly IServiceScopeFactory ServiceScopeFactory;
         private readonly ILogger<Worker> Logger;
         private readonly MessageBrokerSettings MessageBrokerSettings;
         private readonly MessageBrokerSecrets MessageBrokerSecrets;
         private readonly IDatabase Cache;
-        private readonly ISendNotificationManager NotificationManager;
 
-        public Worker(IDatabase cache, ILogger<Worker> logger, IOptions<MessageBrokerSettings> messageBrokerSettings, IOptions<MessageBrokerSecrets> messageBrokerSecrets, ISendNotificationManager notificationManager)
+        public Worker(IServiceScopeFactory serviceScopeFactory, IDatabase cache, ILogger<Worker> logger, IOptions<MessageBrokerSettings> messageBrokerSettings, IOptions<MessageBrokerSecrets> messageBrokerSecrets)
         {
+            this.ServiceScopeFactory = serviceScopeFactory;
             this.Cache = cache;
             this.Logger = logger;
             this.MessageBrokerSettings = messageBrokerSettings.Value;
             this.MessageBrokerSecrets = messageBrokerSecrets.Value;
-            this.NotificationManager = notificationManager;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -70,7 +71,9 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
                 SendNotificationRequestModel request = message.DeserializeJSON<SendNotificationRequestModel>();
                 try
                 {
-                    await this.NotificationManager.SendNotification(request);
+                    // We need services injected to this manager to be in Scoped level (DbContext should be short lived) but always running task creates a single instance of Scoped services. Transient won't work too because we need same DbContext in all the other managers this one calls. So we recreate scope everytime to simulate Scoped injection.
+                    using IServiceScope scope = this.ServiceScopeFactory.CreateScope();
+                    await scope.ServiceProvider.GetRequiredService<ISendNotificationManager>().SendNotification(request);
                     this.RabbitMQChannel.BasicAck(ea.DeliveryTag, false);
                     this.Cache.HashDelete(this.MessageBrokerSettings.RetryCacheKey, request.MessageID.ToString());
                 }

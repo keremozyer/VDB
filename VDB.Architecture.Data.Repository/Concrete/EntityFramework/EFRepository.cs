@@ -154,6 +154,7 @@ namespace VDB.Architecture.Data.Repository.Concrete.EntityFramework
         /// <param name="entity">Element to be updated.</param>
         public void Update(Entity entity)
         {
+            entity.LastUpdatedAt = DateTime.UtcNow;
             EntityEntry entry = dataContext.Entry(entity);
             EntityState currentState = entry.State;
             if (currentState != EntityState.Added)

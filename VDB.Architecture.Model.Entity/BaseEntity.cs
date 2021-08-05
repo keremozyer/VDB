@@ -10,7 +10,7 @@ namespace VDB.Architecture.Model.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? LastUpdatedAt { get; set; }
     }
 }

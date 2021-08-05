@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -11,16 +12,16 @@ namespace VDB.MicroServices.CVEData.Worker.Downloader
 {
     public class Worker : BackgroundService
     {
+        private readonly IServiceScopeFactory ServiceScopeFactory;
         private readonly ILogger<Worker> Logger;
         private System.Timers.Timer Timer;
         private readonly CVEDownloaderSettings CVEDownloaderSettings;
-        private readonly ICVEDownloadBusinessManager CVEDownloadBusinessManager;
 
-        public Worker(ILogger<Worker> logger, IOptions<CVEDownloaderSettings> cveDownloaderSettings, ICVEDownloadBusinessManager cveDownloadBusinessManager)
+        public Worker(IServiceScopeFactory serviceScopeFactory, ILogger<Worker> logger, IOptions<CVEDownloaderSettings> cveDownloaderSettings)
         {
+            this.ServiceScopeFactory = serviceScopeFactory;
             this.Logger = logger;
             this.CVEDownloaderSettings = cveDownloaderSettings.Value;
-            this.CVEDownloadBusinessManager = cveDownloadBusinessManager;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -38,7 +39,9 @@ namespace VDB.MicroServices.CVEData.Worker.Downloader
         {
             try
             {
-                await this.CVEDownloadBusinessManager.GetSystemUpToDate();
+                // We need services injected to this manager to be in Scoped level (DbContext should be short lived) but always running task creates a single instance of Scoped services. Transient won't work too because we need same DbContext in all the other managers this one calls. So we recreate scope everytime to simulate Scoped injection.
+                using IServiceScope scope = this.ServiceScopeFactory.CreateScope();
+                await scope.ServiceProvider.GetRequiredService<ICVEDownloadBusinessManager>().GetSystemUpToDate();
             }
             catch (Exception e)
             {
