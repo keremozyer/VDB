@@ -3,7 +3,7 @@ version: '3.4'
 services:
     vdb.gateway.web:
         container_name: gateway-container
-        image: ${DOCKER_REGISTRY-}vdbgatewayweb
+        image: vdbdocker/vdb:vdbgatewayweb
         build:
             context: .
             dockerfile: VDB.GateWay.Web\Dockerfile
@@ -21,7 +21,7 @@ services:
             - ./Certificate:/app/Certificate
     auth.web.api:
         container_name: auth.web.api
-        image: ${DOCKER_REGISTRY-}vdbmicroservicesauthwebapi
+        image: vdbdocker/vdb:vdbmicroservicesauthwebapi
         build:
             context: .
             dockerfile: VDB.MicroServices.Auth.Web.API\Dockerfile
@@ -35,7 +35,7 @@ services:
             - ./Certificate:/app/Certificate
     cvedata.web.api:
         container_name: cvedata.web.api
-        image: ${DOCKER_REGISTRY-}vdbmicroservicescvedatawebapi
+        image: vdbdocker/vdb:vdbmicroservicescvedatawebapi
         build:
             context: .
             dockerfile: VDB.MicroServices.CVEData.Web.API\Dockerfile
@@ -50,7 +50,7 @@ services:
             - ./Certificate:/app/Certificate
     inventorymanager.web.api:
         container_name: inventorymanager.web.api
-        image: ${DOCKER_REGISTRY-}vdbmicroservicesinventorymanagerwebapi
+        image: vdbdocker/vdb:vdbmicroservicesinventorymanagerwebapi
         build:
             context: .
             dockerfile: VDB.MicroServices.InventoryManager.Web.API\Dockerfile
@@ -64,7 +64,7 @@ services:
             - ./Certificate:/app/Certificate
     vulnerabilitydetector.web.api:
         container_name: vulnerabilitydetector.web.api
-        image: ${DOCKER_REGISTRY-}vdbmicroservicesvulnerabilitydetectorwebapi
+        image: vdbdocker/vdb:vdbmicroservicesvulnerabilitydetectorwebapi
         build:
             context: .
             dockerfile: VDB.MicroServices.VulnerabilityDetector.Web.API\Dockerfile
@@ -79,7 +79,7 @@ services:
             - ./Certificate:/app/Certificate
     vulnerabilitydetector.worker.messageconsumer:
         container_name: vulnerabilitydetector.worker.messageconsumer
-        image: ${DOCKER_REGISTRY-}vdbmicroservicesvulnerabilitydetectorworkermessageconsumer
+        image: vdbdocker/vdb:vdbmicroservicesvulnerabilitydetectorworkermessageconsumer
         build:
             context: .
             dockerfile: VDB.MicroServices.VulnerabilityDetector.Worker.MessageConsumer\Dockerfile
@@ -93,7 +93,7 @@ services:
             - graylog
     notificationcenter.web.api:
         container_name: notificationcenter.web.api
-        image: ${DOCKER_REGISTRY-}vdbmicroservicesnotificationcenterwebapi
+        image: vdbdocker/vdb:vdbmicroservicesnotificationcenterwebapi
         build:
             context: .
             dockerfile: VDB.MicroServices.NotificationCenter.Web.API\Dockerfile
@@ -105,7 +105,7 @@ services:
             - ./Certificate:/app/Certificate
     notificationcenter.worker.messageconsumer:
         container_name: notificationcenter.worker.messageconsumer
-        image: ${DOCKER_REGISTRY-}vdbmicroservicesnotificationcenterworkermessageconsumer
+        image: vdbdocker/vdb:vdbmicroservicesnotificationcenterworkermessageconsumer
         build:
             context: .
             dockerfile: VDB.MicroServices.NotificationCenter.Worker.MessageConsumer\Dockerfile
@@ -117,7 +117,7 @@ services:
             - graylog
     cvedata.worker.downloader:
         container_name: cvedata.worker.downloader
-        image: ${DOCKER_REGISTRY-}vdbmicroservicescvedataworkerdownloader
+        image: vdbdocker/vdb:vdbmicroservicescvedataworkerdownloader
         build:
             context: .
             dockerfile: VDB.MicroServices.CVEData.Worker.Downloader\Dockerfile

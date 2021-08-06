@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\VDB\VDB.Architecture.Model.Entity\VDB.Architecture.Model.Entity.csproj" />
+    <ProjectReference Include="..\VDB.Architecture.Model.Entity\VDB.Architecture.Model.Entity.csproj" />
   </ItemGroup>
 
 </Project>

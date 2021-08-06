@@ -394,3 +394,4 @@ MigrationBackup/
 /VDB.MicroServices.NotificationCenter.Worker.MessageConsumer/Configuration/Ticket/TicketServiceSecrets.json
 /VDB.MicroServices.NotificationCenter.Worker.MessageConsumer/Configuration/Ticket/TicketServiceSecrets.Development.json
 /ReferenceData/volume/Database/mssql
+/ReferenceData/volume/redis/data
