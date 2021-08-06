@@ -138,7 +138,7 @@ services:
         expose:
             - 1433
         volumes:
-            - ${APPDATA}/vdb/Database/mssql:/var/opt/mssql/data
+            - ./ReferenceData/volume/Database/mssql:/var/opt/mssql/data
     ldap-container:
         container_name: ldap-container
         image: osixia/openldap:1.5.0
@@ -208,7 +208,7 @@ services:
         #ports:
             #- "6379:6379"
         volumes:
-            - redis_data:/data
+            - ./ReferenceData/volume/redis/data:/data
     redis-commander:
         container_name: redis-commander
         hostname: redis-commander
