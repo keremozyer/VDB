@@ -1,7 +1,7 @@
 {
   "CVEDownloaderSettings": {
     "DownloadFrequency": 7200000,
-    "DefaultDownloadStartingDateValue": "2002.01.01",
+    "DefaultDownloadStartingDateValue": "2001.01.01",
     "DefaultDownloadStartingDateFormat": "yyyy.MM.dd",
     "CVEResultsPerPage": 100,
     "TriggerReportCreation": true
