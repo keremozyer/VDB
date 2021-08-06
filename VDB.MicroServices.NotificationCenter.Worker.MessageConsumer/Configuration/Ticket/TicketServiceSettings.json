@@ -1,0 +1,21 @@
+{
+  "TicketServiceSettings": {
+    "SearchWithCVEEndpoint": "https://vdbjira.atlassian.net/rest/api/3/search?maxResults=1&fields=total&jql=(status='TO DO' OR status='IN PROGRESS') AND cf[10029]~{0} AND cf[10034]~'{1}' AND cf[10033]~'{2}' AND cf[10032]~'{3}'",
+    "CreateIssueEndpoint": "https://vdbjira.atlassian.net/rest/api/2/issue",
+    "FieldIDs": {
+      "Fields": "fields",
+      "Project": "project",
+      "Summary": "summary",
+      "Description": "description",
+      "IssueType": "issuetype",
+      "CVEID": "customfield_10029",
+      "Vendor": "customfield_10034",
+      "Product": "customfield_10033",
+      "Version": "customfield_10032"
+    },
+    "DefaultFieldValues": {
+      "ProjectKey": "VDB",
+      "IssueTypeName": "Task"
+    }
+  }
+}

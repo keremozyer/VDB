@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using VDB.Architecture.Concern.ExtensionMethods;
 using VDB.MicroServices.NotificationCenter.Concern.Options;
 using VDB.MicroServices.NotificationCenter.Manager.Business.Interface;
+using VDB.MicroServices.NotificationCenter.Model.Exchange.CreateTicket;
 using VDB.MicroServices.NotificationCenter.Model.Exchange.SendNotification;
 
 namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
@@ -19,7 +20,8 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
     public class Worker : BackgroundService
     {
         private IConnection RabbitMQConnection;
-        private IModel RabbitMQChannel;
+        private IModel NotificationRabbitMQChannel;
+        private IModel TicketCreationRabbitMQChannel;
 
         private readonly IServiceScopeFactory ServiceScopeFactory;
         private readonly ILogger<Worker> Logger;
@@ -47,9 +49,14 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
                 DispatchConsumersAsync = true
             };
             this.RabbitMQConnection = rabbitMQConnectionFactory.CreateConnection();
-            this.RabbitMQChannel = this.RabbitMQConnection.CreateModel();
-            this.RabbitMQChannel.QueueDeclare(this.MessageBrokerSettings.NotificationQueueName, durable: true, exclusive: false, autoDelete: false);
-            this.RabbitMQChannel.BasicQos(this.MessageBrokerSettings.PrefetchSize, this.MessageBrokerSettings.PrefetchCount, false);
+
+            this.NotificationRabbitMQChannel = this.RabbitMQConnection.CreateModel();
+            this.NotificationRabbitMQChannel.QueueDeclare(this.MessageBrokerSettings.NotificationQueueName, durable: true, exclusive: false, autoDelete: false);
+            this.NotificationRabbitMQChannel.BasicQos(this.MessageBrokerSettings.PrefetchSize, this.MessageBrokerSettings.PrefetchCount, false);
+
+            this.TicketCreationRabbitMQChannel = this.RabbitMQConnection.CreateModel();
+            this.TicketCreationRabbitMQChannel.QueueDeclare(this.MessageBrokerSettings.TicketCreationQueueName, durable: true, exclusive: false, autoDelete: false);
+            this.TicketCreationRabbitMQChannel.BasicQos(this.MessageBrokerSettings.PrefetchSize, this.MessageBrokerSettings.PrefetchCount, false);
 
             return base.StartAsync(cancellationToken);
         }
@@ -64,8 +71,9 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
         {
             stoppingToken.ThrowIfCancellationRequested();
 
-            AsyncEventingBasicConsumer consumer = new(this.RabbitMQChannel);
-            consumer.Received += async (bc, ea) =>
+            #region Notifications
+            AsyncEventingBasicConsumer notificationConsumer = new(this.NotificationRabbitMQChannel);
+            notificationConsumer.Received += async (bc, ea) =>
             {
                 string message = Encoding.UTF8.GetString(ea.Body.ToArray());
                 SendNotificationRequestModel request = message.DeserializeJSON<SendNotificationRequestModel>();
@@ -74,18 +82,44 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
                     // We need services injected to this manager to be in Scoped level (DbContext should be short lived) but always running task creates a single instance of Scoped services. Transient won't work too because we need same DbContext in all the other managers this one calls. So we recreate scope everytime to simulate Scoped injection.
                     using IServiceScope scope = this.ServiceScopeFactory.CreateScope();
                     await scope.ServiceProvider.GetRequiredService<ISendNotificationManager>().SendNotification(request);
-                    this.RabbitMQChannel.BasicAck(ea.DeliveryTag, false);
+                    this.NotificationRabbitMQChannel.BasicAck(ea.DeliveryTag, false);
                     this.Cache.HashDelete(this.MessageBrokerSettings.RetryCacheKey, request.MessageID.ToString());
                 }
                 catch (Exception e)
                 {
                     double retriedCount = this.Cache.HashIncrement(this.MessageBrokerSettings.RetryCacheKey, request.MessageID.ToString());
                     this.Logger.LogError(default, e, e.Message);
-                    this.RabbitMQChannel.BasicNack(ea.DeliveryTag, false, requeue: retriedCount < this.MessageBrokerSettings.RetryCount);
+                    this.NotificationRabbitMQChannel.BasicNack(ea.DeliveryTag, false, requeue: retriedCount < this.MessageBrokerSettings.RetryCount);
                 }
             };
 
-            this.RabbitMQChannel.BasicConsume(queue: this.MessageBrokerSettings.NotificationQueueName, autoAck: false, consumer: consumer);
+            this.NotificationRabbitMQChannel.BasicConsume(queue: this.MessageBrokerSettings.NotificationQueueName, autoAck: false, consumer: notificationConsumer);
+            #endregion
+
+            #region Ticket
+            AsyncEventingBasicConsumer ticketConsumer = new(this.TicketCreationRabbitMQChannel);
+            ticketConsumer.Received += async (bc, ea) =>
+            {
+                string message = Encoding.UTF8.GetString(ea.Body.ToArray());
+                CreateTicketRequestModel request = message.DeserializeJSON<CreateTicketRequestModel>();
+                try
+                {
+                    // We need services injected to this manager to be in Scoped level (DbContext should be short lived) but always running task creates a single instance of Scoped services. Transient won't work too because we need same DbContext in all the other managers this one calls. So we recreate scope everytime to simulate Scoped injection.
+                    using IServiceScope scope = this.ServiceScopeFactory.CreateScope();
+                    await scope.ServiceProvider.GetRequiredService<ITicketCreationBusinessManager>().CreateTicket(request);
+                    this.TicketCreationRabbitMQChannel.BasicAck(ea.DeliveryTag, false);
+                    this.Cache.HashDelete(this.MessageBrokerSettings.RetryCacheKey, request.MessageID.ToString());
+                }
+                catch (Exception e)
+                {
+                    double retriedCount = this.Cache.HashIncrement(this.MessageBrokerSettings.RetryCacheKey, request.MessageID.ToString());
+                    this.Logger.LogError(default, e, e.Message);
+                    this.TicketCreationRabbitMQChannel.BasicNack(ea.DeliveryTag, false, requeue: retriedCount < this.MessageBrokerSettings.RetryCount);
+                }
+            };
+
+            this.TicketCreationRabbitMQChannel.BasicConsume(queue: this.MessageBrokerSettings.TicketCreationQueueName, autoAck: false, consumer: ticketConsumer);
+            #endregion
 
             await Task.CompletedTask;
         }

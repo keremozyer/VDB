@@ -1,6 +1,7 @@
 {
   "MessageBrokerSettings": {
     "NotificationQueueName": "NotificationQueue",
+    "TicketCreationQueueName": "TicketQueue",
     "HostName": "rabbitmq",
     "Port": 5672,
     "RetryCacheKey": "NotificationQueueRetryCount",

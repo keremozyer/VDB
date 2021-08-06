@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.ExternalData.Model\VDB.MicroServices.NotificationCenter.ExternalData.Model.csproj" />
+    <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.Model.Exchange\VDB.MicroServices.NotificationCenter.Model.Exchange.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,9 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VDB.Architecture.Concern.ExtensionMethods\VDB.Architecture.Concern.ExtensionMethods.csproj" />
     <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.Concern.Options\VDB.MicroServices.NotificationCenter.Concern.Options.csproj" />
     <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract.csproj" />
     <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.ExternalData.Model\VDB.MicroServices.NotificationCenter.ExternalData.Model.csproj" />
+    <ProjectReference Include="..\VDB.MicroServices.NotificationCenter.Model.Exchange\VDB.MicroServices.NotificationCenter.Model.Exchange.csproj" />
   </ItemGroup>
 
 </Project>

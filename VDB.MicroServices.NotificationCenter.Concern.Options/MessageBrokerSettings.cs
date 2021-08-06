@@ -3,6 +3,7 @@
     public class MessageBrokerSettings
     {
         public string NotificationQueueName { get; set; }
+        public string TicketCreationQueueName { get; set; }
         public string HostName { get; set; }
         public int Port { get; set; }
         public string RetryCacheKey { get; set; }

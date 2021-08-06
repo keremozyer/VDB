@@ -391,3 +391,5 @@ MigrationBackup/
 /ReferenceData/bootstrap.ldif
 /VDB.MicroServices.NotificationCenter.Web.API/Configuration/Auth/TokenSettings.json
 /VDB.MicroServices.NotificationCenter.Web.API/Configuration/Auth/TokenSettings.Development.json
+/VDB.MicroServices.NotificationCenter.Worker.MessageConsumer/Configuration/Ticket/TicketServiceSecrets.json
+/VDB.MicroServices.NotificationCenter.Worker.MessageConsumer/Configuration/Ticket/TicketServiceSecrets.Development.json

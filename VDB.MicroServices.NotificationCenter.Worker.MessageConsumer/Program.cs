@@ -3,14 +3,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Text;
 using VDB.Architecture.Concern.Options;
 using VDB.Architecture.Worker.Core;
 using VDB.MicroServices.NotificationCenter.Concern.Options;
 using VDB.MicroServices.NotificationCenter.DB.Context;
 using VDB.MicroServices.NotificationCenter.DB.UnitOfWork;
 using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Contract;
-using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.Emailing;
 using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.Emailing.GoogleMail;
+using VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.Ticket.Jira;
 using VDB.MicroServices.NotificationCenter.Manager.Business.Factory;
 using VDB.MicroServices.NotificationCenter.Manager.Business.Implementation;
 using VDB.MicroServices.NotificationCenter.Manager.Business.Implementation.Notifiers;
@@ -38,6 +39,8 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
             string dbSettingsFile = $"Configuration/DB/DBSettings{extension}";
             string emailServiceSettingsFile = $"Configuration/Notification/EmailService/EmailServiceSettings{extension}";
             string emailServiceSecretsFile = $"Configuration/Notification/EmailService/EmailServiceSecrets{extension}";
+            string ticketServiceSettingsFile = $"Configuration/Ticket/TicketServiceSettings{extension}";
+            string ticketServiceSecretsFile = $"Configuration/Ticket/TicketServiceSecrets{extension}";
 
             IConfiguration config = new ConfigurationBuilder()
                 .AddJsonFile(messageBrokerSettingsFile, false, true)
@@ -46,6 +49,8 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
                 .AddJsonFile(dbSettingsFile, false, true)
                 .AddJsonFile(emailServiceSettingsFile, false, true)
                 .AddJsonFile(emailServiceSecretsFile, false, true)
+                .AddJsonFile(ticketServiceSettingsFile, false, true)
+                .AddJsonFile(ticketServiceSecretsFile, false, true)
                 .Build();
 
             return Host.CreateDefaultBuilder(args)
@@ -57,6 +62,8 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
                     config.AddJsonFile(dbSettingsFile, false, true);
                     config.AddJsonFile(emailServiceSettingsFile, false, true);
                     config.AddJsonFile(emailServiceSecretsFile, false, true);
+                    config.AddJsonFile(ticketServiceSettingsFile, false, true);
+                    config.AddJsonFile(ticketServiceSecretsFile, false, true);
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -76,6 +83,8 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
 
                     CommonStartup.ConfigureRedis(services, config);
 
+                    ConfigureHttpClients(services, config);
+
                     services.AddLogging();
                 });
         }
@@ -87,17 +96,30 @@ namespace VDB.MicroServices.NotificationCenter.Worker.MessageConsumer
             services.AddOptions<RedisSettings>().Bind(config.GetSection(nameof(RedisSettings)));
             services.AddOptions<EmailServiceSettings>().Bind(config.GetSection(nameof(EmailServiceSettings)));
             services.AddOptions<EmailServiceSecrets>().Bind(config.GetSection(nameof(EmailServiceSecrets)));
+            services.AddOptions<TicketServiceSecrets>().Bind(config.GetSection(nameof(TicketServiceSecrets)));
+            services.AddOptions<TicketServiceSettings>().Bind(config.GetSection(nameof(TicketServiceSettings)));
         }
 
         private static void ConfigureBusinessManagers(IServiceCollection services)
         {
             services.AddScoped(typeof(ISendNotificationManager), typeof(SendNotificationManager));
             services.AddScoped(typeof(EmailNotifier));
+            services.AddScoped(typeof(ITicketCreationBusinessManager), typeof(TicketCreationBusinessManager));            
         }
 
         private static void ConfigureServiceManagers(IServiceCollection services)
         {
             services.AddScoped(typeof(IEmailServiceManager), typeof(GoogleEmailServiceManager));
+            services.AddScoped(typeof(ITicketServiceManager), typeof(JiraServiceManager));
+        }
+
+        private static void ConfigureHttpClients(IServiceCollection services, IConfiguration config)
+        {
+            TicketServiceSecrets ticketServiceSecrets = config.GetSection(nameof(TicketServiceSecrets)).Get<TicketServiceSecrets>();
+            services.AddHttpClient<ITicketServiceManager, JiraServiceManager>(configure => 
+            {
+                configure.DefaultRequestHeaders.Add("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ticketServiceSecrets.Username}:{ticketServiceSecrets.Password}"))}");
+            });
         }
 
         private static void ConfigureOperations(IServiceCollection services)
