@@ -101,23 +101,6 @@
         "Role": "VDBAdmins"
       }
     },
-    //CVEData API
-    {
-      "UpstreamPathTemplate": "/CVESearch/{everything}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "cvedata.web.api",
-          "Port": "80"
-        }
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
-    },
     //NotificationCenter API
     {
       "UpstreamPathTemplate": "/NotificationCenter/{everything}",

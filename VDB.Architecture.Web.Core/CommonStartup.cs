@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using VDB.Architecture.AppException.Manager;
@@ -54,10 +56,14 @@ namespace VDB.Architecture.Web.Core
 
         private static void ConfigureSwagger(ServiceConfigurationOptions options)
         {
-            options.Services.AddSwaggerGen(options =>
+            options.Services.AddSwaggerGen(swaggerOptions =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                swaggerOptions.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Title = "API", 
+                    Version = "v1",
+                });
+                swaggerOptions.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
                     Type = SecuritySchemeType.Http,
@@ -65,20 +71,22 @@ namespace VDB.Architecture.Web.Core
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header
                 });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                swaggerOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
                     {
+                        new OpenApiSecurityScheme
                         {
-                            new OpenApiSecurityScheme
+                            Reference = new OpenApiReference
                             {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = JwtBearerDefaults.AuthenticationScheme
-                                }
-                            },
-                            Array.Empty<string>()
-                        }
-                    });
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+                List<string> xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly).ToList();
+                xmlFiles.ForEach(xmlFile => swaggerOptions.IncludeXmlComments(xmlFile));
             });
         }
 

@@ -45,12 +45,12 @@ namespace VDB.MicroServices.InventoryManager.Manager.Operation.Implementation
         /// <summary>
         /// Searches db for products starting with given name. Makes case invariant comparison.
         /// </summary>
-        /// <param name="name">Full or partial product name</param>
+        /// <param name="name">Product name</param>
         /// <param name="includes">Other entities to include in search.</param>
         /// <returns>List of products.</returns>
         public async Task<List<Product>> SearchByName(string name, params Expression<Func<Product, object>>[] includes)
         {
-            return await this.DB.ProductRepository.GetAsync(p => p.Name.ToLower().StartsWith(name), includes: includes);
+            return await this.DB.ProductRepository.GetAsync(p => p.Name.ToLower() == name.ToLower(), includes: includes);
         }
 
         public async Task<List<Product>> GetAllProducts(params Expression<Func<Product, object>>[] includes)

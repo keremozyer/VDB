@@ -46,6 +46,7 @@ namespace VDB.MicroServices.InventoryManager.Manager.Business.Implementation
             if (productVersion == null)
             {
                 productVersion = this.Mapper.Map<ProductVersion>(request);
+                productVersion.Version = productVersion.Version.ToLower();
                 productVersion.Product = product;
                 this.ProductVersionOperations.Create(productVersion);
             }

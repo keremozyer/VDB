@@ -13,7 +13,6 @@ using VDB.MicroServices.InventoryManager.Model.Exchange.Product.Search;
 using VDB.MicroServices.InventoryManager.Model.Exchange.ProductVersion._Common;
 using VDB.MicroServices.InventoryManager.Model.Exchange.Server._Common;
 using VDB.Architecture.Concern.GenericValidator;
-using VDB.Architecture.Concern.Resources.ResourceKeys;
 using VDB.Architecture.AppException.Model.Derived.DataNotFound;
 using VDB.Architecture.Concern.ExtensionMethods;
 
@@ -83,7 +82,7 @@ namespace VDB.MicroServices.InventoryManager.Manager.Business.Implementation
         }
 
         /// <summary>
-        /// Searches for products starting with given name. If a name is not given returns all products. Makes case invariant comparison.
+        /// Searches for products with given name or gets all products if no name was given. Makes case invariant comparison.
         /// </summary>
         /// <param name="request">Search data.</param>
         /// <returns>List of products.</returns>

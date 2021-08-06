@@ -8,7 +8,6 @@ using VDB.MicroServices.CVEData.Concern.Options;
 using VDB.MicroServices.CVEData.DB.Context;
 using VDB.MicroServices.CVEData.DB.UnitOfWork;
 using VDB.MicroServices.CVEData.ExternalData.Manager.Contract;
-using VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData;
 using VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData.NVD;
 using VDB.MicroServices.CVEData.Manager.Business.Implementation;
 using VDB.MicroServices.CVEData.Manager.Business.Interface;
@@ -33,7 +32,6 @@ namespace VDB.MicroServices.CVEData.Web.API
 
             CommonStartup.CommonServiceConfiguration(new ServiceConfigurationOptions(services, this.Configuration)
             {
-                UseSwagger = true,
                 AutoMapperProfile = new CVEDataMappingProfile()
             });
 
@@ -49,15 +47,7 @@ namespace VDB.MicroServices.CVEData.Web.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            CommonStartup.CommonAppConfiguration(new AppConfigurationOptions(app, env, "Error")
-            {
-                SwaggerSettings = new()
-                {
-                    APIName = "CVEData.Web.API",
-                    SwaggerEndpoint = "/swagger/v1/swagger.json",
-                    Server = "/CVEData"
-                }
-            });
+            CommonStartup.CommonAppConfiguration(new AppConfigurationOptions(app, env, "Error"));
         }
 
         private void ConfigureOptions(IServiceCollection services)
@@ -71,8 +61,6 @@ namespace VDB.MicroServices.CVEData.Web.API
             services.AddDbContext<CVEDataDataContext>(options => 
             {
                 options.UseSqlServer(Configuration.GetConnectionString(nameof(CVEDataDataContext)), sqlServerOptions => sqlServerOptions.MigrationsAssembly("VDB.MicroServices.CVEData.DB.Context"));
-                //options.EnableSensitiveDataLogging();
-                //options.LogTo(Console.WriteLine);
             });
             services.AddScoped(typeof(ICVEDataUnitOfWork), typeof(CVEDataUnitOfWork));
         }

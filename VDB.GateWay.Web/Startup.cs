@@ -42,7 +42,6 @@ namespace VDB.GateWay.Web
                 options.SwaggerEndpoint("/AuthDocs/swagger/v1/swagger.json", "Auth");
                 options.SwaggerEndpoint("/InventoryManagerDocs/swagger/v1/swagger.json", "InventoryManager");
                 options.SwaggerEndpoint("/VulnerabilityDetectorDocs/swagger/v1/swagger.json", "VulnerabilityDetector");
-                options.SwaggerEndpoint("/CVEDataDocs/swagger/v1/swagger.json", "CVEData");
                 options.SwaggerEndpoint("/NotificationCenterDocs/swagger/v1/swagger.json", "NotificationCenter");
             });
 

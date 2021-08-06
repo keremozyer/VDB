@@ -37,7 +37,7 @@ namespace VDB.Architecture.AppException.Manager
 
         private ParsedException ParseDataNotFoundException(DataNotFoundException dataNotFoundException)
         {
-            return new ParsedException(HttpStatusCode.UnprocessableEntity, null, dataNotFoundException.Messages?.Select(message => 
+            return new ParsedException(HttpStatusCode.BadRequest, null, dataNotFoundException.Messages?.Select(message => 
             {
                 DataNotFoundExceptionMessage dataNotFoundExceptionMessage = message as DataNotFoundExceptionMessage;
                 return String.Format(this.Cache.StringGet($"{this.CacheRootKey}{"DataNotFound"}"), dataNotFoundExceptionMessage.Value, dataNotFoundExceptionMessage.EntityName);

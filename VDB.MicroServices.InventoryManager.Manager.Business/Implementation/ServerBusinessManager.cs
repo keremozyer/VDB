@@ -47,6 +47,7 @@ namespace VDB.MicroServices.InventoryManager.Manager.Business.Implementation
             if (server == null)
             {
                 server = this.Mapper.Map<Server>(request);
+                server.Name = server.Name.ToLower();
                 this.ServerOperations.Create(server);
             }
 

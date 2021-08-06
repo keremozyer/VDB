@@ -43,14 +43,14 @@ namespace VDB.MicroServices.InventoryManager.Manager.Operation.Implementation
         }
 
         /// <summary>
-        /// Searches db for servers starting with given name. Makes case invariant comparison.
+        /// Searches db for given name. Makes case invariant comparison.
         /// </summary>
-        /// <param name="name">Full or partial server name</param>
+        /// <param name="name">Server name</param>
         /// <param name="includes">Other entities to include in search.</param>
         /// <returns>List of servers.</returns>
         public async Task<List<Server>> SearchByName(string name, params Expression<Func<Server, object>>[] includes)
         {
-            return await this.DB.ServerRepository.GetAsync(s => s.Name.ToLower().StartsWith(name), includes: includes);
+            return await this.DB.ServerRepository.GetAsync(s => s.Name.ToLower() == name.ToLower(), includes: includes);
         }
 
         public async Task<List<Server>> GetAllServers(params Expression<Func<Server, object>>[] includes)

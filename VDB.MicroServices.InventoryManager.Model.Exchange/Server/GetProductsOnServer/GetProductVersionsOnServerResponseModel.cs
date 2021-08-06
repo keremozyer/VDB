@@ -5,6 +5,9 @@ namespace VDB.MicroServices.InventoryManager.Model.Exchange.Server.GetProductsOn
 {
     public record GetProductVersionsOnServerResponseModel
     {
+        /// <summary>
+        /// List of product versions
+        /// </summary>
         public List<ProductVersionData> ProductVersions { get; set; }
     }
 }

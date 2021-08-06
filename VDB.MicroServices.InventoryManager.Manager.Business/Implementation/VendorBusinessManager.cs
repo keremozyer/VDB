@@ -44,7 +44,7 @@ namespace VDB.MicroServices.InventoryManager.Manager.Business.Implementation
             if (vendor == null)
             {
                 vendor = this.Mapper.Map<Vendor>(request);
-                vendor.Name = vendor.Name.ToLower();
+                vendor.Name = vendor.Name.ToLower();                
                 this.VendorOperations.Create(vendor);
             }
 

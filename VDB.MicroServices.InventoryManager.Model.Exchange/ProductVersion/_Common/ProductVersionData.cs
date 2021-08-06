@@ -7,9 +7,21 @@ namespace VDB.MicroServices.InventoryManager.Model.Exchange.ProductVersion._Comm
 {
     public record ProductVersionData
     {
+        /// <summary>
+        /// Product Versions id.
+        /// </summary>
         public Guid ID { get; set; }
+        /// <summary>
+        /// Version number.
+        /// </summary>
         public string Version { get; set; }
+        /// <summary>
+        /// Product of this Product Version
+        /// </summary>
         public ProductData Product { get; set; }
+        /// <summary>
+        /// Servers containing this product version.
+        /// </summary>
         public IEnumerable<ServerData> Servers { get; set; }
     }
 }

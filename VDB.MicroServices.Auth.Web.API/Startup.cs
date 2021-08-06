@@ -24,8 +24,8 @@ namespace VDB.MicroServices.Auth.Web.API
             ConfigureOptions(services);
 
             CommonStartup.CommonServiceConfiguration(new ServiceConfigurationOptions(services, this.Configuration) 
-            { 
-                UseSwagger = true 
+            {
+                UseSwagger = true
             });
 
             ConfigureBusinessManagers(services);
