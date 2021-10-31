@@ -18,11 +18,13 @@ namespace VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData.NVD
     {
         private readonly NVDSettings NVDSettings;
         private readonly HttpClient HttpClient;
+        private readonly NVDSecrets NVDSecrets;
 
-        public NVDServiceManager(IOptions<EndpointSettings> endpointSettings, HttpClient httpClient)
+        public NVDServiceManager(IOptions<EndpointSettings> endpointSettings, HttpClient httpClient, IOptions<Secrets> secrets)
         {
             this.NVDSettings = endpointSettings.Value.NVD;
             this.HttpClient = httpClient;
+            this.NVDSecrets = secrets.Value.NVD;
         }
 
         public async Task<CVEResult> DownloadYearlyData(int year)
@@ -37,7 +39,7 @@ namespace VDB.MicroServices.CVEData.ExternalData.Manager.Service.CVEData.NVD
 
         public async Task<CVEResult> Search(DateTime searchDate, ushort resultsPerPage, uint startIndex)
         {
-            HttpResponseMessage httpResponse = await this.HttpClient.GetAsync(String.Format(this.NVDSettings.SearchEndpoint, resultsPerPage, searchDate.ToUniversalTime().ToString(this.NVDSettings.DateTimeFormat), startIndex));
+            HttpResponseMessage httpResponse = await this.HttpClient.GetAsync(String.Format(this.NVDSettings.SearchEndpoint, resultsPerPage, searchDate.ToUniversalTime().ToString(this.NVDSettings.DateTimeFormat), startIndex, DateTime.UtcNow.ToString(this.NVDSettings.DateTimeFormat), NVDSecrets.APIKey));
 
             CVESearchResponse nvdResponse = (await httpResponse.Content.ReadAsStringAsync()).DeserializeJSON<CVESearchResponse>();
 

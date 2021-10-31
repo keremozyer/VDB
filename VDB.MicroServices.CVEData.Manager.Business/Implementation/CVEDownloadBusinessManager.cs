@@ -70,15 +70,16 @@ namespace VDB.MicroServices.CVEData.Manager.Business.Implementation
         {
             uint cveSearchStartIndex = 0;
             int totalCVECount;
+            DateTime newLatestDownloadTimestamp;
             do
             {
                 CVEResult result = await SearchAndDownload(new SearchAndDownloadCVERequestModel() { SearchDate = latestDownloadTimestamp, StartIndex = cveSearchStartIndex, ResultsPerPage = CVEDownloaderSettings.CVEResultsPerPage });
                 totalCVECount = result.TotalCVECount;
-                latestDownloadTimestamp = result.SearchTimestamp;
+                newLatestDownloadTimestamp = result.SearchTimestamp;
                 cveSearchStartIndex += CVEDownloaderSettings.CVEResultsPerPage;
             } while (cveSearchStartIndex < totalCVECount);
 
-            this.CVEDownloadLogOperations.Create(new CVEDownloadLog() { CVEDataTimestamp = latestDownloadTimestamp, IsDownloadBySearch = true });
+            this.CVEDownloadLogOperations.Create(new CVEDownloadLog() { CVEDataTimestamp = newLatestDownloadTimestamp, IsDownloadBySearch = true });
 
             await this.DB.SaveAsync();
 

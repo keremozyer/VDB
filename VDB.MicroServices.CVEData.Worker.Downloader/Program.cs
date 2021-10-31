@@ -32,12 +32,14 @@ namespace VDB.MicroServices.CVEData.Worker.Downloader
             string cveStorageSettingsFile = $"Configuration/CVEData/CVEStorageSettings{extension}";
             string dbSettingsFile = $"Configuration/DB/DBSettings{extension}";
             string endpointSettingsFile = $"Configuration/ExternalServices/EndpointSettings{extension}";
-            
+            string secretsFile = $"Configuration/ExternalServices/Secrets{extension}";
+
             IConfiguration config = new ConfigurationBuilder()
                 .AddJsonFile(cveDownloaderSettingsFile, false, true)
                 .AddJsonFile(cveStorageSettingsFile, false, true)
                 .AddJsonFile(dbSettingsFile, false, true)
                 .AddJsonFile(endpointSettingsFile, false, true)
+                .AddJsonFile(secretsFile, false, true)
                 .Build();
 
             return Host.CreateDefaultBuilder(args)
@@ -73,6 +75,7 @@ namespace VDB.MicroServices.CVEData.Worker.Downloader
             services.AddOptions<CVEDownloaderSettings>().Bind(config.GetSection(nameof(CVEDownloaderSettings)));
             services.AddOptions<CVEStorageSettings>().Bind(config.GetSection(nameof(CVEStorageSettings)));
             services.AddOptions<EndpointSettings>().Bind(config.GetSection(nameof(EndpointSettings)));
+            services.AddOptions<Secrets>().Bind(config.GetSection(nameof(Secrets)));
         }
 
         private static void ConfigureBusinessManagers(IServiceCollection services)

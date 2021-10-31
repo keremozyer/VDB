@@ -2,7 +2,7 @@
   "EndpointSettings": {
     "NVD": {
       "DownloadYearlyDataEndpoint": "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-{0}.json.zip",
-      "SearchEndpoint": "https://services.nvd.nist.gov/rest/json/cves/1.0?includeMatchStringChange=true&addOns=dictionaryCpes&resultsPerPage={0}&modStartDate={1} UTC&startIndex={2}",
+      "SearchEndpoint": "https://services.nvd.nist.gov/rest/json/cves/1.0?includeMatchStringChange=true&addOns=dictionaryCpes&resultsPerPage={0}&modStartDate={1} UTC&startIndex={2}&modEndDate={3} UTC&apiKey={4}",
       "DateTimeFormat": "yyyy-MM-ddTHH:mm:ss:fff"
     },
     "VulnerabilityDetector": {
