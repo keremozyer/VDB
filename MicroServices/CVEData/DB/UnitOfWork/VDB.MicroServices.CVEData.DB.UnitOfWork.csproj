@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Architecture\Data\UnitOfWork\VDB.Architecture.Data.UnitOfWork.csproj" />
+    <ProjectReference Include="..\Context\VDB.MicroServices.CVEData.DB.Context.csproj" />
+    <ProjectReference Include="..\Repository\VDB.MicroServices.CVEData.DB.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

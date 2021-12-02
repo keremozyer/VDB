@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Architecture\Concern\ExtensionMethods\VDB.Architecture.Concern.ExtensionMethods.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Architecture\Concern\Helper\VDB.Architecture.Concern.Helper.csproj" />
+    <ProjectReference Include="..\..\..\Concern\Options\VDB.MicroServices.CVEData.Concern.Options.csproj" />
+    <ProjectReference Include="..\..\..\Manager\Mapper\VDB.MicroServices.CVEData.Manager.Mapper.csproj" />
+    <ProjectReference Include="..\..\..\Model\DTO\VDB.MicroServices.CVEData.Model.DTO.csproj" />
+    <ProjectReference Include="..\..\Model\VDB.MicroServices.CVEData.ExternalData.Model.csproj" />
+    <ProjectReference Include="..\Contract\VDB.MicroServices.CVEData.ExternalData.Manager.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

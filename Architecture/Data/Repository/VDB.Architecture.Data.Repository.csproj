@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Concern\ExtensionMethods\VDB.Architecture.Concern.ExtensionMethods.csproj" />
+    <ProjectReference Include="..\..\Model\Entity\VDB.Architecture.Model.Entity.csproj" />
+    <ProjectReference Include="..\Context\VDB.Architecture.Data.Context.csproj" />
+  </ItemGroup>
+
+</Project>

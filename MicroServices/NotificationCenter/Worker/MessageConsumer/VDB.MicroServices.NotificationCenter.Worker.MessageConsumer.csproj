@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-VDB.MicroServices.NotificationCenter.Worker.MessageConsumer-DD5AEAFC-1878-4F51-A519-BCB4328E11C2</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Architecture\Concern\Options\VDB.Architecture.Concern.Options.csproj" />
+    <ProjectReference Include="..\..\..\..\Architecture\Worker\Core\VDB.Architecture.Worker.Core.csproj" />
+    <ProjectReference Include="..\..\Concern\Options\VDB.MicroServices.NotificationCenter.Concern.Options.csproj" />
+    <ProjectReference Include="..\..\DB\Context\VDB.MicroServices.NotificationCenter.DB.Context.csproj" />
+    <ProjectReference Include="..\..\DB\UnitOfWork\VDB.MicroServices.NotificationCenter.DB.UnitOfWork.csproj" />
+    <ProjectReference Include="..\..\ExternalData\Manager\Service\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.csproj" />
+    <ProjectReference Include="..\..\Manager\Business\VDB.MicroServices.NotificationCenter.Manager.Business.csproj" />
+    <ProjectReference Include="..\..\Manager\Operation\VDB.MicroServices.NotificationCenter.Manager.Operation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Configuration\Cache\RedisSettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Cache\RedisSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\MessageBroker\MessageBrokerSecrets.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\MessageBroker\MessageBrokerSecrets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\MessageBroker\MessageBrokerSettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\MessageBroker\MessageBrokerSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Notification\EmailService\EmailServiceSecrets.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Notification\EmailService\EmailServiceSecrets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Notification\EmailService\EmailServiceSettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Notification\EmailService\EmailServiceSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Ticket\TicketServiceSecrets.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Ticket\TicketServiceSecrets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Ticket\TicketServiceSettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Configuration\Ticket\TicketServiceSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Architecture\Data\Repository\VDB.Architecture.Data.Repository.csproj" />
+    <ProjectReference Include="..\Context\VDB.MicroServices.NotificationCenter.DB.Context.csproj" />
+  </ItemGroup>
+
+</Project>

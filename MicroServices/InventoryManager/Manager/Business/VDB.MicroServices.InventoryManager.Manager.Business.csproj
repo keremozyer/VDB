@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Architecture\Concern\GenericValidator\VDB.Architecture.Concern.GenericValidator.csproj" />
+    <ProjectReference Include="..\..\DB\UnitOfWork\VDB.MicroServices.InventoryManager.DB.UnitOfWork.csproj" />
+    <ProjectReference Include="..\..\Model\Exchange\VDB.MicroServices.InventoryManager.Model.Exchange.csproj" />
+    <ProjectReference Include="..\Operation\VDB.MicroServices.InventoryManager.Manager.Operation.csproj" />
+  </ItemGroup>
+
+</Project>

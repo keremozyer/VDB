@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DB\UnitOfWork\VDB.MicroServices.CVEData.DB.UnitOfWork.csproj" />
+    <ProjectReference Include="..\..\ExternalData\Manager\Service\VDB.MicroServices.CVEData.ExternalData.Manager.Service.csproj" />
+    <ProjectReference Include="..\..\Model\Exchange\VDB.MicroServices.CVEData.Model.Exchange.csproj" />
+    <ProjectReference Include="..\Operation\VDB.MicroServices.CVEData.Manager.Operation.csproj" />
+  </ItemGroup>
+
+</Project>

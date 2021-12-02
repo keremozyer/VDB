@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Architecture\Concern\ExtensionMethods\VDB.Architecture.Concern.ExtensionMethods.csproj" />
+    <ProjectReference Include="..\..\ExternalData\Model\VDB.MicroServices.CVEData.ExternalData.Model.csproj" />
+    <ProjectReference Include="..\..\Model\DTO\VDB.MicroServices.CVEData.Model.DTO.csproj" />
+    <ProjectReference Include="..\..\Model\Entity\VDB.MicroServices.CVEData.Model.Entity.csproj" />
+    <ProjectReference Include="..\..\Model\Exchange\VDB.MicroServices.CVEData.Model.Exchange.csproj" />
+  </ItemGroup>
+
+</Project>

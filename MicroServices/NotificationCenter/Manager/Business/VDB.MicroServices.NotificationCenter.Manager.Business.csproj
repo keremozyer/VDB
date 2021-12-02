@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AsyncEnumerator" Version="4.0.2" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Architecture\AppException\Model\VDB.Architecture.AppException.Model.csproj" />
+    <ProjectReference Include="..\..\..\..\Architecture\Concern\GenericValidator\VDB.Architecture.Concern.GenericValidator.csproj" />
+    <ProjectReference Include="..\..\Concern\Constants\VDB.MicroServices.NotificationCenter.Concern.Constants.csproj" />
+    <ProjectReference Include="..\..\ExternalData\Manager\Service\VDB.MicroServices.NotificationCenter.ExternalData.Manager.Service.csproj" />
+    <ProjectReference Include="..\..\Model\Exchange\VDB.MicroServices.NotificationCenter.Model.Exchange.csproj" />
+    <ProjectReference Include="..\Operation\VDB.MicroServices.NotificationCenter.Manager.Operation.csproj" />
+  </ItemGroup>
+
+</Project>
